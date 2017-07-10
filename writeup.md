@@ -47,8 +47,9 @@ Here's | A | Snappy | Table
 3 | *italic* | text | 403
 4 | 2 | 3 | abcd
 
-<sup>i-1</sup>T<sub>i</sub> | \alpha<sub>i-1</sub> | a<sub>i-1</sub> | d<sub>i</sub> | \theta<sub>i</sub>
-<sup>0</sup>T<sub>1</sub> | \alpha<sub>0</sub> | a<sub>0</sub> | d<sub>1</sub> | \theta<sub>i-1</sub>
+<sup>i-1</sup>T<sub>i</sub> | $$\alpha$$<sub>i-1</sub> | a<sub>i-1</sub> | d<sub>i</sub> | $$\theta$$<sub>i</sub>
+--- | --- | --- | ---
+<sup>0</sup>T<sub>1</sub> | $$\alpha$$<sub>0</sub> | a<sub>0</sub> | d<sub>1</sub> | $$\theta$$<sub>i-1</sub>
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
