@@ -46,6 +46,10 @@ Here is an example of how to include an image in your writeup.
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
+T | alpha | a | d
+--- | --- | --- | ---
+bla | ble | bli | blo
+
 And here's another image! 
 
 ![alt text][image2]
