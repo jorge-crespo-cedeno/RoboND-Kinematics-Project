@@ -36,7 +36,7 @@ You're reading it!
 
 ![alt text][image1]
 
-The file kr210.urdf.xacro and the graph shown above, are the sources to obtain the DH table, as follows:
+The file kr210.urdf.xacro and the graph shown above are the sources to obtain the DH table, as follows:
 
 * alpha<sub>0</sub> is zero becausen z<sub>0</sub> and z<sub>1</sub> are parallel.
 * a<sub>0</sub> is zero because there is no displacement between z<sub>0</sub> and z<sub>1</sub>.
@@ -80,7 +80,7 @@ The obtained DH table is as follows:
 
 #### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
 
-The intersecion between x<sub>i</sub> and z<sub>i</sub> is the origin of the reference frame i. Let this origin be O<sub>i</sub>. The transformation from O<sub>i-1</sub> to O<sub>i</sub>, denoted by <sup>i-1</sup>T<sub>i</sub>, is the multiplication of the transformation matrices R<sub>x</sub>(alpha<sub>i-1</sub>)D<sub>x</sub>(a<sub>i-1</sub>)R<sub>z</sub>(theta<sub>i</sub>)D<sub>z</sub>(d<sub>i</sub>), which gives the following matrix:
+The intersecion between x<sub>i</sub> and z<sub>i</sub> is the origin of the reference frame i. Let this origin be O<sub>i</sub>. The transformation from O<sub>i-1</sub> to O<sub>i</sub>, denoted by <sup>i-1</sup>T<sub>i</sub>, is the multiplication of the transformation matrices R<sub>x</sub>(alpha<sub>i-1</sub>)D<sub>x</sub>(a<sub>i-1</sub>)R<sub>z</sub>(theta<sub>i</sub>)D<sub>z</sub>(d<sub>i</sub>), where R<sub>i</sub> is the transformation matrix expressing the rotation around the i axis, and D<sub>i</sub> is the transformation matrix expressing the translation along the i axis. This multiplication gives the following matrix:
 
 NOT | A | MATRIX | ROW
 --- | --- | --- | ---
@@ -96,15 +96,21 @@ The homogeneous transformation matrix from base the end-effector is obtained by 
 We have a system with 6 unknowns, i.e., theta<sub>1</sub>, theta<sub>2</sub>, theta<sub>3</sub>, theta<sub>4</sub>, theta<sub>5</sub>, theta<sub>6</sub>. The position and rotation of the end-effector are known. We could use these position and rotation to try to solve for the 6 unknowns. But instead, an easier way to approach this problem is to use the fact that between the origins O<sub>4</sub>, O<sub>5</sub> and O<sub>6</sub>, there are no displacements, i.e., a<sub>4</sub> = a<sub>5</sub> = d<sub>5</sub> = d<sub>6</sub> = 0, and that the displacement d<sub>7</sub> from O<sub>6</sub> to O<sub>7</sub> is along the x axis of the end-effector in urdf coordinates. So, we could subtract d<sub>7</sub> from the end-effector position, using the orthonormal vector representing the projection of the x axis of the end-effector reference frame onto the world coordinates, which are the coordinates of O<sub>0</sub>, and obtain the position of O<sub>6</sub>, which is the postion of O<sub>4</sub>, both in world coordinates. The position of O<sub>4</sub> only depends on theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub>, so we equate the translation component from <sup>0</sup>T<sub>4</sub> = <sup>0</sup>T<sub>1</sub> <sup>1</sup>T<sub>2</sub> <sup>2</sup>T<sub>3</sub><sup>3</sup>T<sub>4</sub>, which is expressed in terms of theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub>, with the position obtained by subtracting d<sub>7</sub> from the end-effector position.
 
 **I** = (I<sub>x</sub>,I<sub>y</sub>,I<sub>z</sub>) = Orthonormal vector representing the projection of the x axis of the end-effector reference frame onto the world coordinates.
-P = (P<sub>x</sub>,P<sub>y</sub>,P<sub>z</sub>) = End-effector position.
-W = (W<sub>x</sub>,W<sub>y</sub>,W<sub>z</sub>) = O<sub>4</sub> position, a.k.a. wrist center
-t = (t<sub>x</sub>,t<sub>y</sub>,t<sub>z</sub>) = Translation component of transformation from O<sub>0</sub> to O<sub>4</sub>, i.e., <sup>0</sup>T<sub>4</sub>
 
-W = P - I(d<sub>7</sub>)
+**P** = (P<sub>x</sub>,P<sub>y</sub>,P<sub>z</sub>) = End-effector position.
 
---- | --- | --- | --- | ---
-<sup>i-1</sup>T<sub>i</sub> | alpha<sub>i-1</sub> | a<sub>i-1</sub> | d | theta
-bla | ble | bli | blo | blu<br>
+**W** = (W<sub>x</sub>,W<sub>y</sub>,W<sub>z</sub>) = O<sub>4</sub> position, a.k.a. wrist center
+
+**t** = (t<sub>x</sub>,t<sub>y</sub>,t<sub>z</sub>) = Translation component of transformation from O<sub>0</sub> to O<sub>4</sub>, i.e., <sup>0</sup>T<sub>4</sub>
+
+**W** = **P** - **I**.d<sub>7</sub>
+
+t<sub>x</sub> = cos(theta<sub>1</sub>)(a<sub>2</sub>sin(theta<sub>2</sub>) - a<sub>3</sub>sin(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub>cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>1</sub>)
+
+t<sub>y</sub> = sin(theta<sub>1</sub>)(a<sub>2</sub>sin(theta<sub>2</sub>) - a<sub>3</sub>sin(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub>cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>1</sub>)
+
+t<sub>z</sub> = -d<sub>4</sub>sin(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>2</sub>cos(theta<sub>2</sub>) - a<sub>3</sub>cos(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>1</sub>
+
 
 And here's another image! 
 
