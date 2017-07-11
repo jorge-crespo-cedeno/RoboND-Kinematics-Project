@@ -41,14 +41,14 @@ Here is an example of how to include an image in your writeup.
 #### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
 
 <sup>i-1</sup>T<sub>i</sub> | alpha<sub>i-1</sub> | a<sub>i-1</sub> | d<sub>i</sub> | theta<sub>i</sub>
---- | --- | --- | ---
+--- | --- | --- | --- | ---
 <sup>0</sup>T<sub>1</sub> | $$\alpha$$<sub>0</sub> | a<sub>0</sub> | d<sub>1</sub> | $$\theta$$<sub>i-1</sub>
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
 <sup>i-1</sup>T<sub>i</sub> | alpha<sub>i-1</sub> | a<sub>i-1</sub> | d | theta
---- | --- | --- | ---
-bla | ble | bli | blo
+--- | --- | --- | --- | ---
+bla | ble | bli | blo | blu
 
 And here's another image! 
 
