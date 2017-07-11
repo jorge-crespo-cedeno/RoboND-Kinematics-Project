@@ -17,7 +17,7 @@
 
 [//]: # (Image References)
 
-[image1]: ./misc_images/misc1.png
+[image1]: ./misc_images/robond-kinematics.png
 [image2]: ./misc_images/misc2.png
 [image3]: ./misc_images/misc3.png
 
@@ -34,15 +34,53 @@ You're reading it!
 ### Kinematic Analysis
 #### 1. Run the forward_kinematics demo and evaluate the kr210.urdf.xacro file to perform kinematic analysis of Kuka KR210 robot and derive its DH parameters.
 
-Here is an example of how to include an image in your writeup.
-
 ![alt text][image1]
+
+The file kr210.urdf.xacro and the graph shown above, are the sources to obtain the DH table, as follows:
+
+alpha0 is zero becausen z0 and z1 are parallel.
+a0 is zero because there is no displacement between z0 and z1.
+d1 is the diplacement between x0 and x1 along z1, which in the xacro file is the z position of joint1 w.r.t the base (0.33), plus the z position of joint_2 w.r.t joint_1 (0.42).
+
+alpha1 is the angle between z1 and z2 measured about x1 (-pi/2).
+a1 is the displacement between z1 and z2 along x1, which in the xacro file is the x position of joint_2 with respect to joint_1 (0.35).
+d2 is zero because there is no displacement between x1 and x2.
+
+alpha2 is zero because z2 and z3 are parallel.
+a2 is the displacement between z2 and z3 along x2, which in the xacro file is the z position of joint_3 w.r.t joint_2 (1.25).
+d3 is zero because there is no displacement between x2 and x3
+
+alpha3 is the angle between z3 and z4 measured about x3 (-pi/2).
+a3 is the displacement between z3 and z4 along x3, which in the xacro file is the z position of joint_4 w.r.t joint_3 (-0.054)
+d4 is the displacement between x3 and x4 along z4, which in the xacro file is the x position of joint_4 w.r.t joint_3 (0.96) plus the x position of joint_5 w.r.t joint_4 (0.54)
+
+alpha4 is the angle between z4 and z5 measured about x4 (pi/2).
+a4 is zero because there is no displacement between z4 and z5.
+d5 is zero because there is no displacement between x4 and x5.
+
+
+alpha5 is the angle between z5 and z6 measured about x5 (-pi/2).
+a5 is zero because there is no displacement between z5 and z6.
+d6 is zero because there is no displacement between x5 and x6.
+
+alpha6 is zero because z6 and z7, a.k.a zg, are parallel.
+a6 is zero because there is no displacement between z6 and z7.
+d7 (a.k.a. dg) is the displacement between x6 and x7 (a.k.a. xg) along z7, which in the xacro file is the x position of joint_6 w.r.t. joint_5 (0.193) plus the x position of the gripper_joint w.r.t joint_6 (0.11)
+
+The obtained DH table is as follows:
+
+<sup>i-1</sup>T<sub>i</sub> | alpha<sub>i-1</sub> | a<sub>i-1</sub> | d<sub>i</sub> | theta<sub>i</sub>
+--- | --- | --- | --- | ---
+<sup>0</sup>T<sub>1</sub> | alpha<sub>0</sub> = 0 | a<sub>0</sub> = 0 | d<sub>1</sub> = 0.75 | theta<sub>1</sub>
+<sup>1</sup>T<sub>2</sub> | alpha<sub>1</sub> = -pi/2 | a<sub>1</sub> = 0.35 | d<sub>2</sub> = 0 | theta<sub>2</sub> = theta<sub>2</sub>-pi/2
+<sup>2</sup>T<sub>3</sub> | alpha<sub>2</sub> = 0 | a<sub>2</sub> = 1.25 | d<sub>3</sub> = 0 | theta<sub>3</sub>
+<sup>3</sup>T<sub>4</sub> | alpha<sub>3</sub> = -pi/2 | a<sub>3</sub> = -0.054 | d<sub>4</sub> = 1.50 | theta<sub>4</sub>
+<sup>4</sup>T<sub>5</sub> | alpha<sub>4</sub> = pi/2 | a<sub>4</sub> = 0 | d<sub>5</sub> = 0 | theta<sub>5</sub>
+<sup>5</sup>T<sub>6</sub> | alpha<sub>5</sub> = -pi/2 | a<sub>5</sub> = 0 | d<sub>6</sub> = 0 | theta<sub>6</sub>
+<sup>6</sup>T<sub>7</sub> | alpha<sub>6</sub> = 0 | a<sub>6</sub> = 0 | d<sub>7</sub> = 0.303 | theta<sub>7</sub> = 0
 
 #### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
 
-<sup>i-1</sup>T<sub>i</sub> | \alpha<sub>i-1</sub> | a<sub>i-1</sub> | d<sub>i</sub> | theta<sub>i</sub>
---- | --- | --- | --- | ---
-<sup>0</sup>T<sub>1</sub> | $\alpha$<sub>0</sub> | a<sub>0</sub> | d<sub>1</sub> | $$\theta$$<sub>i-1</sub>
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
