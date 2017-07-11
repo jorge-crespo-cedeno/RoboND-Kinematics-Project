@@ -38,34 +38,33 @@ You're reading it!
 
 The file kr210.urdf.xacro and the graph shown above, are the sources to obtain the DH table, as follows:
 
-alpha0 is zero becausen z0 and z1 are parallel.
-a0 is zero because there is no displacement between z0 and z1.
-d1 is the diplacement between x0 and x1 along z1, which in the xacro file is the z position of joint1 w.r.t the base (0.33), plus the z position of joint_2 w.r.t joint_1 (0.42).
+* alpha0 is zero becausen z0 and z1 are parallel.
+* a0 is zero because there is no displacement between z0 and z1.
+* d1 is the diplacement between x0 and x1 along z1, which in the xacro file is the z position of joint1 w.r.t the base (0.33), plus the z position of joint_2 w.r.t joint_1 (0.42).
 
-alpha1 is the angle between z1 and z2 measured about x1 (-pi/2).
-a1 is the displacement between z1 and z2 along x1, which in the xacro file is the x position of joint_2 with respect to joint_1 (0.35).
-d2 is zero because there is no displacement between x1 and x2.
+* alpha1 is the angle between z1 and z2 measured about x1 (-pi/2).
+* a1 is the displacement between z1 and z2 along x1, which in the xacro file is the x position of joint_2 with respect to joint_1 (0.35).
+* d2 is zero because there is no displacement between x1 and x2.
 
-alpha2 is zero because z2 and z3 are parallel.
-a2 is the displacement between z2 and z3 along x2, which in the xacro file is the z position of joint_3 w.r.t joint_2 (1.25).
-d3 is zero because there is no displacement between x2 and x3
+* alpha2 is zero because z2 and z3 are parallel.
+* a2 is the displacement between z2 and z3 along x2, which in the xacro file is the z position of joint_3 w.r.t joint_2 (1.25).
+* d3 is zero because there is no displacement between x2 and x3
 
-alpha3 is the angle between z3 and z4 measured about x3 (-pi/2).
-a3 is the displacement between z3 and z4 along x3, which in the xacro file is the z position of joint_4 w.r.t joint_3 (-0.054)
-d4 is the displacement between x3 and x4 along z4, which in the xacro file is the x position of joint_4 w.r.t joint_3 (0.96) plus the x position of joint_5 w.r.t joint_4 (0.54)
+* alpha3 is the angle between z3 and z4 measured about x3 (-pi/2).
+* a3 is the displacement between z3 and z4 along x3, which in the xacro file is the z position of joint_4 w.r.t joint_3 (-0.054)
+* d4 is the displacement between x3 and x4 along z4, which in the xacro file is the x position of joint_4 w.r.t joint_3 (0.96) plus the x position of joint_5 w.r.t joint_4 (0.54)
 
-alpha4 is the angle between z4 and z5 measured about x4 (pi/2).
-a4 is zero because there is no displacement between z4 and z5.
-d5 is zero because there is no displacement between x4 and x5.
+* alpha4 is the angle between z4 and z5 measured about x4 (pi/2).
+* a4 is zero because there is no displacement between z4 and z5.
+* d5 is zero because there is no displacement between x4 and x5.
 
+* alpha5 is the angle between z5 and z6 measured about x5 (-pi/2).
+* a5 is zero because there is no displacement between z5 and z6.
+* d6 is zero because there is no displacement between x5 and x6.
 
-alpha5 is the angle between z5 and z6 measured about x5 (-pi/2).
-a5 is zero because there is no displacement between z5 and z6.
-d6 is zero because there is no displacement between x5 and x6.
-
-alpha6 is zero because z6 and z7, a.k.a zg, are parallel.
-a6 is zero because there is no displacement between z6 and z7.
-d7 (a.k.a. dg) is the displacement between x6 and x7 (a.k.a. xg) along z7, which in the xacro file is the x position of joint_6 w.r.t. joint_5 (0.193) plus the x position of the gripper_joint w.r.t joint_6 (0.11)
+* alpha6 is zero because z6 and z7, a.k.a zg, are parallel.
+* a6 is zero because there is no displacement between z6 and z7.
+* d7 (a.k.a. dg) is the displacement between x6 and x7 (a.k.a. xg) along z7, which in the xacro file is the x position of joint_6 w.r.t. joint_5 (0.193) plus the x position of the gripper_joint w.r.t joint_6 (0.11)
 
 The obtained DH table is as follows:
 
