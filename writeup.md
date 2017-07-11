@@ -38,33 +38,33 @@ You're reading it!
 
 The file kr210.urdf.xacro and the graph shown above, are the sources to obtain the DH table, as follows:
 
-* alpha0 is zero becausen z0 and z1 are parallel.
-* a0 is zero because there is no displacement between z0 and z1.
-* d1 is the diplacement between x0 and x1 along z1, which in the xacro file is the z position of joint1 w.r.t the base (0.33), plus the z position of joint_2 w.r.t joint_1 (0.42).
+* alpha<sub>0</sub> is zero becausen z<sub>0</sub> and z<sub>1</sub> are parallel.
+* a<sub>0</sub> is zero because there is no displacement between z<sub>0</sub> and z<sub>1</sub>.
+* d<sub>1</sub> is the diplacement between x<sub>0</sub> and x<sub>1</sub> along z<sub>1</sub>, which in the xacro file is the z position of joint_1 w.r.t the base (0.33), plus the z position of joint_2 w.r.t joint_1 (0.42).
 
-* alpha1 is the angle between z1 and z2 measured about x1 (-pi/2).
-* a1 is the displacement between z1 and z2 along x1, which in the xacro file is the x position of joint_2 with respect to joint_1 (0.35).
-* d2 is zero because there is no displacement between x1 and x2.
+* alpha<sub>1</sub> is the angle between z<sub>1</sub> and z<sub>2</sub> measured about x<sub>1</sub> (-pi/2).
+* a<sub>1</sub> is the displacement between z<sub>1</sub> and z<sub>2</sub> along x<sub>1</sub>, which in the xacro file is the x position of joint_2 with respect to joint_1 (0.35).
+* d<sub>2</sub> is zero because there is no displacement between x<sub>1</sub> and x<sub>2</sub>.
 
-* alpha2 is zero because z2 and z3 are parallel.
-* a2 is the displacement between z2 and z3 along x2, which in the xacro file is the z position of joint_3 w.r.t joint_2 (1.25).
-* d3 is zero because there is no displacement between x2 and x3
+* alpha<sub>2</sub> is zero because z<sub>2</sub> and z<sub>3</sub> are parallel.
+* a<sub>2</sub> is the displacement between z<sub>2</sub> and z<sub>3</sub> along x<sub>2</sub>, which in the xacro file is the z position of joint_3 w.r.t joint_2 (1.25).
+* d<sub>3</sub> is zero because there is no displacement between x<sub>2</sub> and x<sub>3</sub>
 
-* alpha3 is the angle between z3 and z4 measured about x3 (-pi/2).
-* a3 is the displacement between z3 and z4 along x3, which in the xacro file is the z position of joint_4 w.r.t joint_3 (-0.054)
-* d4 is the displacement between x3 and x4 along z4, which in the xacro file is the x position of joint_4 w.r.t joint_3 (0.96) plus the x position of joint_5 w.r.t joint_4 (0.54)
+* alpha<sub>3</sub> is the angle between z<sub>3</sub> and z<sub>4</sub> measured about x<sub>3</sub> (-pi/2).
+* a<sub>3</sub> is the displacement between z<sub>3</sub> and z<sub>4</sub> along x<sub>3</sub>, which in the xacro file is the z position of joint_4 w.r.t joint_3 (-0.054)
+* d<sub>4</sub> is the displacement between x<sub>3</sub> and x<sub>4</sub> along z<sub>4</sub>, which in the xacro file is the x position of joint_4 w.r.t joint_3 (0.96) plus the x position of joint_5 w.r.t joint_4 (0.54)
 
-* alpha4 is the angle between z4 and z5 measured about x4 (pi/2).
-* a4 is zero because there is no displacement between z4 and z5.
-* d5 is zero because there is no displacement between x4 and x5.
+* alpha<sub>4</sub> is the angle between z<sub>4</sub> and z<sub>5</sub> measured about x<sub>4</sub> (pi/2).
+* a<sub>4</sub> is zero because there is no displacement between z<sub>4</sub> and z<sub>5</sub>.
+* d<sub>5</sub> is zero because there is no displacement between x<sub>4</sub> and x<sub>5</sub>.
 
-* alpha5 is the angle between z5 and z6 measured about x5 (-pi/2).
-* a5 is zero because there is no displacement between z5 and z6.
-* d6 is zero because there is no displacement between x5 and x6.
+* alpha<sub>5</sub> is the angle between z<sub>5</sub> and z<sub>6</sub> measured about x<sub>5</sub> (-pi/2).
+* a<sub>5</sub> is zero because there is no displacement between z<sub>5</sub> and z<sub>6</sub>.
+* d<sub>6</sub> is zero because there is no displacement between x<sub>5</sub> and x<sub>6</sub>.
 
-* alpha6 is zero because z6 and z7, a.k.a zg, are parallel.
-* a6 is zero because there is no displacement between z6 and z7.
-* d7 (a.k.a. dg) is the displacement between x6 and x7 (a.k.a. xg) along z7, which in the xacro file is the x position of joint_6 w.r.t. joint_5 (0.193) plus the x position of the gripper_joint w.r.t joint_6 (0.11)
+* alpha<sub>6</sub> is zero because z<sub>6</sub> and z<sub>7</sub>, a.k.a z<sub>G</sub>, are parallel.
+* a<sub>6</sub> is zero because there is no displacement between z<sub>6</sub> and z<sub>7</sub>.
+* d<sub>7</sub> (a.k.a. d<sub>G</sub>) is the displacement between x<sub>6</sub> and x<sub>7</sub> (a.k.a. x<sub>G</sub>) along z<sub>7</sub>, which in the xacro file is the x position of joint_6 w.r.t. joint_5 (0.193) plus the x position of the gripper_joint w.r.t joint_6 (0.11)
 
 The obtained DH table is as follows:
 
@@ -80,6 +80,11 @@ The obtained DH table is as follows:
 
 #### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
 
+The intersecion between x<sub>i</sub> and z<sub>i</sub> is the origin of the reference frame i. Let this origin be O<sub>i</sub>. The transformation from O<sub>i-1</sub> to O<sub>i</sub>, denoted by <sup>i-1</sup>T<sub>i</sub>, is the multiplication of the transformation matrices R<sub>x</sub>(alpha<sub>i-1</sub>)D<sub>x</sub>(a<sub>i-1</sub>)R<sub>z</sub>(theta<sub>i</sub>)D<sub>z</sub>(d<sub>i</sub>), which give the matrix
+[[ cos(theta<sub>i</sub>)     -sin(theta<sub>i</sub>    0     a<sub>i-1</sub> ]
+ [sin(theta<sub>i</sub>)cos(alpha<sub>i-1</sub>)    cos(theta<sub>i</sub>)cos(alpha<sub>i-1</sub>)    -sin(alpha<sub>i-1</sub>)    -sin(alpha<sub>i-1</sub>)d<sub>i</sub>]
+ [sin(theta<sub>i</sub>)sin(alpha<sub>i-1</sub>)    cos(theta<sub>i</sub>)sin(alpha<sub>i-1</sub>)     cos(alpha<sub>i-1</sub>)     cos(alpha<sub>i-1</sub>)d<sub>i</sub>]
+ [  0  0  0  1  ]]
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
