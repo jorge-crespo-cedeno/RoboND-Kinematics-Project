@@ -105,13 +105,23 @@ We have a system with 6 unknowns, i.e., theta<sub>1</sub>, theta<sub>2</sub>, th
 
 **W** = **P** - **I**.d<sub>7</sub>
 
-t<sub>x</sub> = cos(theta<sub>1</sub>)(a<sub>2</sub>sin(theta<sub>2</sub>) - a<sub>3</sub>sin(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub>cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>1</sub>)
+t<sub>x</sub> = cos(theta<sub>1</sub>)(a<sub>2</sub>.sin(theta<sub>2</sub>) - a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>1</sub>)
 
-t<sub>y</sub> = sin(theta<sub>1</sub>)(a<sub>2</sub>sin(theta<sub>2</sub>) - a<sub>3</sub>sin(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub>cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>1</sub>)
+t<sub>y</sub> = sin(theta<sub>1</sub>)(a<sub>2</sub>.sin(theta<sub>2</sub>) - a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>1</sub>)
 
-t<sub>z</sub> = -d<sub>4</sub>sin(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>2</sub>cos(theta<sub>2</sub>) - a<sub>3</sub>cos(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>1</sub>
+t<sub>z</sub> = -d<sub>4</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>2</sub>.cos(theta<sub>2</sub>) - a<sub>3</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>1</sub>
 
+Equating **W** and **t**, theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub> can be obtained, as follows:
 
+theta<sub>1</sub> = atan2(w<sub>y</sub>, w<sub>x</sub>)
+
+Knowing theta<sub>1</sub>, we can calculate
+
+(w<sub>x</sub>/cos(theta<sub>1</sub> - a<sub>1</sub>)<sup>2</sup> = a<sub>2</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub>) + a<sub>2</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>2</sub>.sin(theta<sub>2</sub>).a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + 2.a<sub>2</sub>.sin(theta<sub>2</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>)
+
+(w<sub>z</sub> - d<sub>1</sub>)<sup>2</sup> = d<sub>4</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>) - 2.d<sub>4</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).a<sub>2</sub>.cos(theta<sub>2</sub>) + a<sub>2</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub>) + 2.d<sub>4</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).a<sub>3</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>2</sub>.cos(theta<sub>2</sub>).a<sub>3</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>3</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>)
+
+With 
 And here's another image! 
 
 ![alt text][image2]
