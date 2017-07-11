@@ -93,17 +93,17 @@ The homogeneous transformation matrix from base the end-effector is obtained by 
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
-We have a system with 6 unknowns, i.e., theta<sub>1</sub>, theta<sub>2</sub>, theta<sub>3</sub>, theta<sub>4</sub>, theta<sub>5</sub>, theta<sub>6</sub>. The position and rotation of the end-effector are known. We could use these position and rotation to try to solve for the 6 unknowns. But instead, an easier way to approach this problem is to use the fact that between the origins O<sub>4</sub>, O<sub>5</sub> and O<sub>6</sub>, there are no displacements, i.e., a<sub>4</sub> = a<sub>5</sub> = d<sub>5</sub> = d<sub>6</sub> = 0, and that the displacement d<sub>7</sub> from O<sub>6</sub> to O<sub>7</sub> is along the x axis of the end-effector in urdf coordinates. So, we could subtract d<sub>7</sub> from the end-effector position, using the orthonormal vector representing the projection of the x axis of the end-effector reference frame onto the world coordinates, which are the coordinates of O<sub>0</sub>, and obtain the position of O<sub>6</sub>, which is the postion of O<sub>4</sub>, both in world coordinates. The position of O<sub>4</sub> only depends on theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub>, so we equate the translation component from <sup>0</sup>T<sub>4</sub> = <sup>0</sup>T<sub>1</sub> <sup>1</sup>T<sub>2</sub> <sup>2</sup>T<sub>3</sub><sup>3</sup>T<sub>4</sub>, which is expressed in terms of theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub>, with the position obtained by subtracting d<sub>7</sub> from the end-effector position.
+We have a system with 6 unknowns, i.e., theta<sub>1</sub>, theta<sub>2</sub>, theta<sub>3</sub>, theta<sub>4</sub>, theta<sub>5</sub>, theta<sub>6</sub>. The position and rotation of the end-effector are known. We could use these position and rotation to try to solve for the 6 unknowns. But instead, an easier way to approach this problem is to use the fact that between the origins O<sub>4</sub>, O<sub>5</sub> and O<sub>6</sub>, there are no displacements, i.e., a<sub>4</sub> = a<sub>5</sub> = d<sub>5</sub> = d<sub>6</sub> = 0, and that the displacement d<sub>7</sub> from O<sub>6</sub> to O<sub>7</sub> is along the x axis of the end-effector in urdf coordinates. So, we could subtract d<sub>7</sub> from the end-effector position, using the orthonormal vector representing the projection of the x axis of the end-effector reference frame onto the world coordinates, which are the coordinates of O<sub>0</sub>, and obtain the position of O<sub>6</sub>, which is the postion of O<sub>4</sub>, both in world coordinates. The position of O<sub>4</sub> only depends on theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub>, so we equate the translation component from <sup>0</sup>T<sub>4</sub> = <sup>0</sup>T<sub>1</sub>.<sup>1</sup>T<sub>2</sub>.<sup>2</sup>T<sub>3</sub>.<sup>3</sup>T<sub>4</sub>, which is expressed in terms of theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub>, with the position obtained by subtracting d<sub>7</sub> from the end-effector position.
 
 **I** = (I<sub>x</sub>,I<sub>y</sub>,I<sub>z</sub>) = Orthonormal vector representing the projection of the x axis of the end-effector reference frame onto the world coordinates.
 
-**P** = (P<sub>x</sub>,P<sub>y</sub>,P<sub>z</sub>) = End-effector position.
+**p** = (p<sub>x</sub>,p<sub>y</sub>,p<sub>z</sub>) = End-effector position.
 
-**W** = (W<sub>x</sub>,W<sub>y</sub>,W<sub>z</sub>) = O<sub>4</sub> position, a.k.a. wrist center
+**w** = (w<sub>x</sub>,w<sub>y</sub>,w<sub>z</sub>) = O<sub>4</sub> position, a.k.a. wrist center
 
 **t** = (t<sub>x</sub>,t<sub>y</sub>,t<sub>z</sub>) = Translation component of transformation from O<sub>0</sub> to O<sub>4</sub>, i.e., <sup>0</sup>T<sub>4</sub>
 
-**W** = **P** - **I**.d<sub>7</sub>
+**w** = **p** - **I**.d<sub>7</sub>
 
 t<sub>x</sub> = cos(theta<sub>1</sub>)(a<sub>2</sub>.sin(theta<sub>2</sub>) - a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>1</sub>)
 
@@ -111,17 +111,54 @@ t<sub>y</sub> = sin(theta<sub>1</sub>)(a<sub>2</sub>.sin(theta<sub>2</sub>) - a<
 
 t<sub>z</sub> = -d<sub>4</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>2</sub>.cos(theta<sub>2</sub>) - a<sub>3</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>1</sub>
 
-Equating **W** and **t**, theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub> can be obtained, as follows:
+Equating **w** and **t**, theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub> can be obtained, as follows:
 
 theta<sub>1</sub> = atan2(w<sub>y</sub>, w<sub>x</sub>)
 
-Knowing theta<sub>1</sub>, we can calculate
+Knowing theta<sub>1</sub>, we can calculate:
 
-(w<sub>x</sub>/cos(theta<sub>1</sub> - a<sub>1</sub>)<sup>2</sup> = a<sub>2</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub>) + a<sub>2</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>2</sub>.sin(theta<sub>2</sub>).a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + 2.a<sub>2</sub>.sin(theta<sub>2</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>)
+(w<sub>x</sub>/cos(theta<sub>1</sub> - a<sub>1</sub>)<sup>2</sup> = a<sub>2</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub>) + a<sub>3</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>2</sub>.sin(theta<sub>2</sub>).a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + 2.a<sub>2</sub>.sin(theta<sub>2</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>)
 
 (w<sub>z</sub> - d<sub>1</sub>)<sup>2</sup> = d<sub>4</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>) - 2.d<sub>4</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).a<sub>2</sub>.cos(theta<sub>2</sub>) + a<sub>2</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub>) + 2.d<sub>4</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).a<sub>3</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>2</sub>.cos(theta<sub>2</sub>).a<sub>3</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>3</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>)
 
-With 
+Adding these last two equations and re-arranging, we obtain:
+
+(d<sub>4</sub><sup>2</sup> + a<sub>3</sub><sup>2</sup> + a<sub>2</sub><sup>2</sup> - (w<sub>x</sub>/cos(theta<sub>1</sub> - a<sub>1</sub>)<sup>2</sup> - (w<sub>z</sub> - d<sub>1</sub>)<sup>2</sup>) / (2.a<sub>2</sub>) = a<sub>3</sub>.cos(theta<sub>3</sub>) - d<sub>4</sub>.sin(theta<sub>3</sub>) = k
+
+where k is a constant.
+
+using the substitution:
+
+sin(theta<sub>3</sub>) = 2.u / (1 + u<sup>2</sup>)
+
+cos(theta<sub>3</sub>) = (1 - u<sup>2</sup>) / (1 + u<sup>2</sup>)
+
+where u = tan(theta<sub>3</sub> / 2)
+
+we obtain a quadratic equation with two solutions for u:
+
+u<sub>1</sub> = (2.d<sub>4</sub> + sqrt(4.d<sub>4</sub><sup>2</sup> - 4(k<sup>2</sup> - a<sub>3</sub><sup>2</sup>))) / (2(k + a<sub>3</sub>))
+
+u<sub>2</sub> = (2.d<sub>4</sub> - sqrt(4.d<sub>4</sub><sup>2</sup> - 4(k<sup>2</sup> - a<sub>3</sub><sup>2</sup>))) / (2(k + a<sub>3</sub>))
+
+Given the configuration space, theta<sub>3</sub> tends to be small, hence we choose u<sub>2</sub>
+
+To obtain theta<sub>2</sub>, we multiply w<sub>x</sub>/cos(theta<sub>1</sub> - a<sub>1</sub> by sin(theta<sub>2</sub>), and w<sub>z</sub> - d<sub>1</sub> by cos(theta<sub>2</sub>) and add them, obtaining:
+
+(w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub>).sin(theta<sub>2</sub>) + (w<sub>z</sub> - d<sub>1</sub>).cos(theta<sub>2</sub>) = a<sub>2</sub> - k
+
+again, using the substitution:
+
+sin(theta<sub>2</sub>) = 2.v / (1 + v<sup>2</sup>)
+
+cos(theta<sub>2</sub>) = (1 - v<sup>2</sup>) / (1 + v<sup>2</sup>)
+
+where v = tan(theta<sub>2</sub> / 2)
+
+we obtain a quadratic equation with two solutions for v:
+
+v<sub>1</sub> = (-2.(w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub>) + sqrt(4.(w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub>)<sup>2</sup> - 4.(d<sub>1</sub> - w<sub>z</sub> - a<sub>2</sub> + k).(w<sub>z</sub> - d<sub>1</sub> - a<sub>2</sub> + k))) / (2.(d<sub>1</sub> - w<sub>z</sub> - a<sub>2</sub> + k))
+
 And here's another image! 
 
 ![alt text][image2]
