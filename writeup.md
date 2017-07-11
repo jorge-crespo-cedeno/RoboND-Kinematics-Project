@@ -81,12 +81,14 @@ The obtained DH table is as follows:
 #### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
 
 The intersecion between x<sub>i</sub> and z<sub>i</sub> is the origin of the reference frame i. Let this origin be O<sub>i</sub>. The transformation from O<sub>i-1</sub> to O<sub>i</sub>, denoted by <sup>i-1</sup>T<sub>i</sub>, is the multiplication of the transformation matrices R<sub>x</sub>(alpha<sub>i-1</sub>)D<sub>x</sub>(a<sub>i-1</sub>)R<sub>z</sub>(theta<sub>i</sub>)D<sub>z</sub>(d<sub>i</sub>), which give the following matrix<br>
-[[ cos(theta<sub>i</sub>)  -sin(theta<sub>i</sub>)  a<sub>i-1</sub> ]<br>
- [sin(theta<sub>i</sub>)cos(alpha<sub>i-1</sub>)  cos(theta<sub>i</sub>)cos(alpha<sub>i-1</sub>)  -sin(alpha<sub>i-1</sub>)  -sin(alpha<sub>i-1</sub>)d<sub>i</sub>]<br>
- [sin(theta<sub>i</sub>)sin(alpha<sub>i-1</sub>)  cos(theta<sub>i</sub>)sin(alpha<sub>i-1</sub>)  cos(alpha<sub>i-1</sub>)  cos(alpha<sub>i-1</sub>)d<sub>i</sub>]<br>
- [  0  0  0  1  ]]<br>
+ | | | 
+--- | --- | --- | ---
+cos(theta<sub>i</sub>) | -sin(theta<sub>i</sub>) | 0 | a<sub>i-1</sub><br>
+sin(theta<sub>i</sub>)cos(alpha<sub>i-1</sub>) | cos(theta<sub>i</sub>)cos(alpha<sub>i-1</sub>) | -sin(alpha<sub>i-1</sub>) | -sin(alpha<sub>i-1</sub>)d<sub>i</sub><br>
+sin(theta<sub>i</sub>)sin(alpha<sub>i-1</sub>) | cos(theta<sub>i</sub>)sin(alpha<sub>i-1</sub>) | cos(alpha<sub>i-1</sub>) | cos(alpha<sub>i-1</sub>)d<sub>i</sub><br>
+0 | 0 | 0 | 1<br>
 
-The homogeneous transformation matrix from base the end-effector is obtained by (<sup>0</sup>T<sub>ee</sub>) = (<sup>0</sup>T<sub>1</sub>)(<sup>1</sup>T<sub>2</sub>)(<sup>2</sup>T<sub>3</sub>)(<sup>3</sup>T<sub>4</sub>)(<sup>4</sup>T<sub>5</sub>)(<sup>5</sup>T<sub>6</sub>)(<sup>6</sup>T<sub>7</sub>)(<sup>7</sup>T<sub>ee</sub>), where <sup>7</sup>T<sub>ee</sub> is a correction matrix, since urdf specification uses a diferent reference frame at the end-effector than DH. The x and z urdf reference frame coordinates are x<sub>w</sub> and z<sub>w</sub> in the image above.
+The homogeneous transformation matrix from base the end-effector is obtained by (<sup>0</sup>T<sub>ee</sub>) = (<sup>0</sup>T<sub>1</sub>)(<sup>1</sup>T<sub>2</sub>)(<sup>2</sup>T<sub>3</sub>)(<sup>3</sup>T<sub>4</sub>)(<sup>4</sup>T<sub>5</sub>)(<sup>5</sup>T<sub>6</sub>)(<sup>6</sup>T<sub>7</sub>)(<sup>7</sup>T<sub>ee</sub>), where <sup>7</sup>T<sub>ee</sub> is a correction matrix needed because the urdf specification uses a diferent reference frame at the end-effector than DH. This correction matrix is obtained by rotating 180 degrees around z, and -90 degrees around y. The x and z urdf reference frame coordinates are depicted in the image previously shown as x<sub>w</sub> and z<sub>w</sub>, respectively.
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
