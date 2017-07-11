@@ -17,7 +17,7 @@
 
 [//]: # (Image References)
 
-[image1]: ./misc_images/robond-kinematics.png
+[image1]: ./misc_images/robond-kinematics.jpg
 [image2]: ./misc_images/misc2.png
 [image3]: ./misc_images/misc3.png
 
