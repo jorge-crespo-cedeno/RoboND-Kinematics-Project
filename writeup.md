@@ -82,7 +82,7 @@ The obtained DH table is as follows:
 
 The intersecion between x<sub>i</sub> and z<sub>i</sub> is the origin of the reference frame i. Let this origin be O<sub>i</sub>. The transformation from O<sub>i-1</sub> to O<sub>i</sub>, denoted by <sup>i-1</sup>T<sub>i</sub>, is the multiplication of the transformation matrices R<sub>x</sub>(alpha<sub>i-1</sub>)D<sub>x</sub>(a<sub>i-1</sub>)R<sub>z</sub>(theta<sub>i</sub>)D<sub>z</sub>(d<sub>i</sub>), which give the following matrix:
 
-ABC | BCD | CDE | DEF
+ABC | BCD | CDE |
 --- | --- | --- | ---
 cos(theta<sub>i</sub>) | -sin(theta<sub>i</sub>) | 0 | a<sub>i-1</sub>
 sin(theta<sub>i</sub>)cos(alpha<sub>i-1</sub>) | cos(theta<sub>i</sub>)cos(alpha<sub>i-1</sub>) | -sin(alpha<sub>i-1</sub>) | -sin(alpha<sub>i-1</sub>)d<sub>i</sub>
@@ -93,8 +93,8 @@ The homogeneous transformation matrix from base the end-effector is obtained by 
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
-<sup>i-1</sup>T<sub>i</sub> | alpha<sub>i-1</sub> | a<sub>i-1</sub> | d | theta
 --- | --- | --- | --- | ---
+<sup>i-1</sup>T<sub>i</sub> | alpha<sub>i-1</sub> | a<sub>i-1</sub> | d | theta
 bla | ble | bli | blo | blu<br>
 
 And here's another image! 
