@@ -89,7 +89,7 @@ sin(theta<sub>i</sub>)cos(alpha<sub>i-1</sub>) | cos(theta<sub>i</sub>)cos(alpha
 sin(theta<sub>i</sub>)sin(alpha<sub>i-1</sub>) | cos(theta<sub>i</sub>)sin(alpha<sub>i-1</sub>) | cos(alpha<sub>i-1</sub>) | cos(alpha<sub>i-1</sub>)d<sub>i</sub>
 0 | 0 | 0 | 1
 
-The homogeneous transformation matrix from base the end-effector is obtained by (<sup>0</sup>T<sub>ee</sub>) = (<sup>0</sup>T<sub>1</sub>)(<sup>1</sup>T<sub>2</sub>)(<sup>2</sup>T<sub>3</sub>)(<sup>3</sup>T<sub>4</sub>)(<sup>4</sup>T<sub>5</sub>)(<sup>5</sup>T<sub>6</sub>)(<sup>6</sup>T<sub>7</sub>)(<sup>7</sup>T<sub>ee</sub>), where <sup>7</sup>T<sub>ee</sub> is a correction matrix needed because the transformation at the end-effector is in urdf coordinates, which uses a different specification than the DH convention. This correction matrix is obtained by rotating 180 degrees around z, and -90 degrees around y. The x and z coordinates in urdf are depicted in the image previously shown as x<sub>w</sub> and z<sub>w</sub>, respectively.
+The homogeneous transformation matrix from base the end-effector is obtained by <sup>0</sup>T<sub>ee</sub> = <sup>0</sup>T<sub>1</sub>.<sup>1</sup>T<sub>2</sub>.<sup>2</sup>T<sub>3</sub>.<sup>3</sup>T<sub>4</sub>.<sup>4</sup>T<sub>5</sub>.<sup>5</sup>T<sub>6</sub>.<sup>6</sup>T<sub>7</sub>.<sup>7</sup>T<sub>ee</sub>, where <sup>7</sup>T<sub>ee</sub> is a correction matrix needed because the transformation at the end-effector is in urdf coordinates, which uses a different specification than the DH convention. This correction matrix is obtained by rotating 180 degrees around z, and -90 degrees around y. The x and z coordinates in urdf are depicted in the image previously shown as x<sub>w</sub> and z<sub>w</sub>, respectively.
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
@@ -117,13 +117,13 @@ theta<sub>1</sub> = atan2(w<sub>y</sub>, w<sub>x</sub>)
 
 Knowing theta<sub>1</sub>, we can calculate:
 
-(w<sub>x</sub>/cos(theta<sub>1</sub> - a<sub>1</sub>)<sup>2</sup> = a<sub>2</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub>) + a<sub>3</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>2</sub>.sin(theta<sub>2</sub>).a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + 2.a<sub>2</sub>.sin(theta<sub>2</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>)
+(w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub>)<sup>2</sup> = a<sub>2</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub>) + a<sub>3</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>2</sub>.sin(theta<sub>2</sub>).a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>) + 2.a<sub>2</sub>.sin(theta<sub>2</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>3</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).d<sub>4</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + d<sub>4</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>)
 
 (w<sub>z</sub> - d<sub>1</sub>)<sup>2</sup> = d<sub>4</sub><sup>2</sup>.sin<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>) - 2.d<sub>4</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).a<sub>2</sub>.cos(theta<sub>2</sub>) + a<sub>2</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub>) + 2.d<sub>4</sub>.sin(theta<sub>2</sub> + theta<sub>3</sub>).a<sub>3</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) - 2.a<sub>2</sub>.cos(theta<sub>2</sub>).a<sub>3</sub>.cos(theta<sub>2</sub> + theta<sub>3</sub>) + a<sub>3</sub><sup>2</sup>.cos<sup>2</sup>(theta<sub>2</sub> + theta<sub>3</sub>)
 
 Adding these last two equations and re-arranging, we obtain:
 
-(d<sub>4</sub><sup>2</sup> + a<sub>3</sub><sup>2</sup> + a<sub>2</sub><sup>2</sup> - (w<sub>x</sub>/cos(theta<sub>1</sub> - a<sub>1</sub>)<sup>2</sup> - (w<sub>z</sub> - d<sub>1</sub>)<sup>2</sup>) / (2.a<sub>2</sub>) = a<sub>3</sub>.cos(theta<sub>3</sub>) - d<sub>4</sub>.sin(theta<sub>3</sub>) = k
+(d<sub>4</sub><sup>2</sup> + a<sub>3</sub><sup>2</sup> + a<sub>2</sub><sup>2</sup> - (w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub>)<sup>2</sup> - (w<sub>z</sub> - d<sub>1</sub>)<sup>2</sup>) / (2.a<sub>2</sub>) = a<sub>3</sub>.cos(theta<sub>3</sub>) - d<sub>4</sub>.sin(theta<sub>3</sub>) = k
 
 where k is a constant.
 
@@ -137,13 +137,13 @@ where u = tan(theta<sub>3</sub> / 2)
 
 we obtain a quadratic equation with two solutions for u:
 
-u<sub>1</sub> = (2.d<sub>4</sub> + sqrt(4.d<sub>4</sub><sup>2</sup> - 4(k<sup>2</sup> - a<sub>3</sub><sup>2</sup>))) / (2(k + a<sub>3</sub>))
+u<sub>1</sub> = (d<sub>4</sub> + sqrt(d<sub>4</sub><sup>2</sup> - k<sup>2</sup> + a<sub>3</sub><sup>2</sup>)) / (k + a<sub>3</sub>)
 
-u<sub>2</sub> = (2.d<sub>4</sub> - sqrt(4.d<sub>4</sub><sup>2</sup> - 4(k<sup>2</sup> - a<sub>3</sub><sup>2</sup>))) / (2(k + a<sub>3</sub>))
+u<sub>2</sub> = (d<sub>4</sub> - sqrt(d<sub>4</sub><sup>2</sup> - k<sup>2</sup> + a<sub>3</sub><sup>2</sup>)) / (k + a<sub>3</sub>)
 
-Given the configuration space, theta<sub>3</sub> tends to be small, hence we choose u<sub>2</sub>
+Given the configuration space, theta<sub>3</sub> tends to be small, hence we choose u<sub>2</sub>.
 
-To obtain theta<sub>2</sub>, we multiply w<sub>x</sub>/cos(theta<sub>1</sub> - a<sub>1</sub> by sin(theta<sub>2</sub>), and w<sub>z</sub> - d<sub>1</sub> by cos(theta<sub>2</sub>) and add them, obtaining:
+To obtain theta<sub>2</sub>, we multiply w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub> by sin(theta<sub>2</sub>), and w<sub>z</sub> - d<sub>1</sub> by cos(theta<sub>2</sub>) and add them, obtaining:
 
 (w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub>).sin(theta<sub>2</sub>) + (w<sub>z</sub> - d<sub>1</sub>).cos(theta<sub>2</sub>) = a<sub>2</sub> - k
 
@@ -157,11 +157,20 @@ where v = tan(theta<sub>2</sub> / 2)
 
 we obtain a quadratic equation with two solutions for v:
 
-v<sub>1</sub> = (-2.(w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub>) + sqrt(4.(w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub>)<sup>2</sup> - 4.(d<sub>1</sub> - w<sub>z</sub> - a<sub>2</sub> + k).(w<sub>z</sub> - d<sub>1</sub> - a<sub>2</sub> + k))) / (2.(d<sub>1</sub> - w<sub>z</sub> - a<sub>2</sub> + k))
+v<sub>1</sub> = (-w<sub>x</sub>/cos(theta<sub>1</sub>) + a<sub>1</sub> + sqrt((w<sub>x</sub>/cos(theta<sub>1</sub>) - a<sub>1</sub>)<sup>2</sup> - (d<sub>1</sub> - w<sub>z</sub> - a<sub>2</sub> + k).(w<sub>z</sub> - d<sub>1</sub> - a<sub>2</sub> + k))) / (d<sub>1</sub> - w<sub>z</sub> - a<sub>2</sub> + k)
 
-And here's another image! 
+Given the configuration space, theta<sub>2</sub> tends to have a positive value, hence we choose v<sub>2</sub>.
 
-![alt text][image2]
+With theta<sub>1</sub>, theta<sub>2</sub> and theta<sub>3</sub> known, we can calculate the rotation matrix <sup>0</sup>R<sub>3</sub>, which is the rotation component of the transformation matrix <sup>0</sup>T<sub>3</sub>. Since <sup>0</sup>T<sub>ee</sub> = <sup>0</sup>T<sub>3</sub>.<sup>3</sup>T<sub>ee</sub>, and the DH convention is formulated in such a way that the any displacement along an axis is preceded by a rotation around that axis, then the rotation components of the transformation matrices do not depend on the displacements. Hence, we can also state that <sup>0</sup>R<sub>ee</sub> = <sup>0</sup>R<sub>3</sub>.<sup>3</sup>R<sub>ee</sub>. Since <sup>0</sup>R<sub>ee</sub> is given, we can obtain <sup>3</sup>R<sub>ee</sub> = <sup>0</sup>R<sub>3</sub><sup>1</sup>.<sup>0</sup>R<sub>ee</sub>.
+
+Analitically, we can obtain <sup>3</sup>R<sub>ee</sub>, which is:
+
+NOT | A | ROW
+--- | --- | ---
+-sin(theta<sub>5</sub>).cos(theta<sub>4</sub>) | sin(theta<sub>4</sub>).cos(theta<sub>6</sub>) + sin(theta<sub>6</sub>).cos(theta<sub>4</sub>).cos(theta<sub>5</sub>) | -sin(theta<sub>4</sub>).sin(theta<sub>6</sub>) + cos(theta<sub>4</sub>).cos(theta<sub>5</sub>).cos(theta<sub>6</sub>)
+cos(theta<sub>5</sub>) | sin(theta<sub>5</sub>)sin(theta<sub>6</sub>) | sin(theta<sub>5</sub>) | cos(theta<sub>6</sub>)
+sin(theta<sub>4</sub>)sin(theta<sub>5</sub>) | -sin(theta<sub>4</sub>).sin(theta<sub>6</sub>).cos(theta<sub>5</sub>) + cos(theta<sub>4</sub>).cos(theta<sub>6</sub>) | -sin(theta<sub>4</sub>).cos(theta<sub>5</sub>).cos(theta<sub>6</sub>) - sin(theta<sub>6</sub>).cos(theta<sub>4</sub>)
+
 
 ### Project Implementation
 

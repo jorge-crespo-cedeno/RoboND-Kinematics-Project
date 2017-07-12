@@ -19,6 +19,7 @@ from mpmath import *
 from sympy import *
 
 
+# Define Modified DH Transformation matrix
 # alpha_i-1, a_i-1, d_i, q_i
 def Tmatrix(alpha, a, d, q):
     """
@@ -71,13 +72,14 @@ def handle_calculate_IK(req):
         chosen_cosq2 = 0
 
         # Define DH param symbols
+        # Joint angle symbols
         q1, q2, q3, q4, q5, q6, q7 = symbols('q1:8')
         d1, d2, d3, d4, d5, d6, d7 = symbols('d1:8')
         a0, a1, a2, a3, a4, a5, a6 = symbols('a0:7')
         alpha0, alpha1, alpha2, alpha3, alpha4, alpha5, alpha6 = symbols('alpha0:7')
 
 
-        # Joint angle symbols
+        # Modified DH params
         s = {alpha0:     0,  a0:      0, d1:  0.75,
              alpha1: -pi/2,  a1:   0.35, d2:     0,  q2: q2-pi/2,
              alpha2:     0,  a2:   1.25, d3:     0,
@@ -86,9 +88,7 @@ def handle_calculate_IK(req):
              alpha5: -pi/2,  a5:      0, d6:     0,
              alpha6:     0,  a6:      0, d7: 0.303,  q7: 0}
 
-        #print "s",s
-
-        # Modified DH params
+        # Create individual transformation matrices
         T0_1 = Tmatrix(alpha0, a0, d1, q1)
         T0_1 = T0_1.subs(s)
 
@@ -112,7 +112,6 @@ def handle_calculate_IK(req):
         T6_7 = T6_7.subs(s)
         """
 
-        # Define Modified DH Transformation matrix
         T0_2 = T0_1 * T1_2
         T0_3 = T0_2 * T2_3
         """
@@ -123,7 +122,6 @@ def handle_calculate_IK(req):
         T0_7 = T0_6 * T6_7
         """
 
-        # Create individual transformation matrices
         """
         T_z = Matrix([[    cos(pi), -sin(pi),          0, 0],
                       [    sin(pi),  cos(pi),          0, 0],
@@ -194,7 +192,7 @@ def handle_calculate_IK(req):
 
             # First versions of sin(q3) and cos(q3)
             """
-            u = (2*d4 + sqrt(4*d4**2 - 4*(k**2 - a3**2)))/(2*(k + a3))
+            u = (d4 + sqrt(d4**2 - k**2 + a3**2))/(k + a3)
             u = u.subs(s)
 
             sinq3_v1 = 2*u/(1 + u**2)
@@ -204,7 +202,7 @@ def handle_calculate_IK(req):
             # Second versions of sin(q3) and cos(q3)
             # This version will get the more sensible arm pose
             # for the given configuration
-            u = (2*d4 - sqrt(4*d4**2 - 4*(k**2 - a3**2)))/(2*(k + a3))
+            u = (d4 - sqrt(d4**2 - k**2 + a3**2))/(k + a3)
             u = u.subs(s)
 
             sinq3_v2 = 2*u/(1 + u**2)
@@ -218,7 +216,7 @@ def handle_calculate_IK(req):
             # First versions of sin(q2) and cos(q2)
             # This version will get the more sensible arm pose
             # for the given configuration
-            u = (-2*(wx/cos(theta1) - a1) + sqrt(4*(wx/cos(theta1) - a1)**2 - 4*(d1 - wz - a2 + k)*(wz - d1 - a2 + k)))/(2*(d1 - wz - a2 + k))
+            u = (-wx/cos(theta1) + a1 + sqrt((wx/cos(theta1) - a1)**2 - (d1 - wz - a2 + k)*(wz - d1 - a2 + k)))/(d1 - wz - a2 + k)
             u = u.subs(s)
 
             sinq2_v1 = 2*u/(1 + u**2)
@@ -226,7 +224,7 @@ def handle_calculate_IK(req):
 
             # Second versions of sin(q2) and cos(q2)
             """
-            u = (-2*(wx/cos(theta1) - a1) - sqrt(4*(wx/cos(theta1) - a1)**2 - 4*(d1 - wz - a2 + k)*(wz - d1 - a2 + k)))/(2*(d1 - wz - a2 + k))
+            u = (-wx/cos(theta1) + a1 - sqrt((wx/cos(theta1) - a1)**2 - (d1 - wz - a2 + k)*(wz - d1 - a2 + k)))/(d1 - wz - a2 + k)
             u = u.subs(s)
 
             sinq2_v2 = 2*u/(1 + u**2)
