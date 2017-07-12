@@ -168,9 +168,16 @@ Analitically, we can obtain <sup>3</sup>R<sub>ee</sub>, which is:
 NOT | A | ROW
 --- | --- | ---
 -sin(theta<sub>5</sub>).cos(theta<sub>4</sub>) | sin(theta<sub>4</sub>).cos(theta<sub>6</sub>) + sin(theta<sub>6</sub>).cos(theta<sub>4</sub>).cos(theta<sub>5</sub>) | -sin(theta<sub>4</sub>).sin(theta<sub>6</sub>) + cos(theta<sub>4</sub>).cos(theta<sub>5</sub>).cos(theta<sub>6</sub>)
-cos(theta<sub>5</sub>) | sin(theta<sub>5</sub>)sin(theta<sub>6</sub>) | sin(theta<sub>5</sub>) | cos(theta<sub>6</sub>)
-sin(theta<sub>4</sub>)sin(theta<sub>5</sub>) | -sin(theta<sub>4</sub>).sin(theta<sub>6</sub>).cos(theta<sub>5</sub>) + cos(theta<sub>4</sub>).cos(theta<sub>6</sub>) | -sin(theta<sub>4</sub>).cos(theta<sub>5</sub>).cos(theta<sub>6</sub>) - sin(theta<sub>6</sub>).cos(theta<sub>4</sub>)
+cos(theta<sub>5</sub>) | sin(theta<sub>5</sub>).sin(theta<sub>6</sub>) | sin(theta<sub>5</sub>).cos(theta<sub>6</sub>)
+sin(theta<sub>4</sub>).sin(theta<sub>5</sub>) | -sin(theta<sub>4</sub>).sin(theta<sub>6</sub>).cos(theta<sub>5</sub>) + cos(theta<sub>4</sub>).cos(theta<sub>6</sub>) | -sin(theta<sub>4</sub>).cos(theta<sub>5</sub>).cos(theta<sub>6</sub>) - sin(theta<sub>6</sub>).cos(theta<sub>4</sub>)
 
+Then, the remaining thetas can be calculated as follows:
+
+theta<sub>4</sub> = atan2(<sup>3</sup>R<sub>7<sub>2,0</sub></sub>, -R3_7[0,0])
+
+theta<sub>5</sub> = atan2(sqrt(<sup>3</sup>R<sub>7<sub>2,0</sub></sub><sup>2</sup> + <sup>3</sup>R<sub>7<sub>0,0</sub></sub><sup>2</sup>), <sup>3</sup>R<sub>7<sub>1,0</sub></sub>)
+
+theta<sub>6</sub> = atan2(<sup>3</sup>R<sub>7<sub>1,1</sub></sub>, <sup>3</sup>R<sub>7<sub>1,2</sub></sub>)
 
 ### Project Implementation
 
