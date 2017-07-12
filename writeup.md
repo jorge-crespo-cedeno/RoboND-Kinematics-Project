@@ -173,7 +173,7 @@ sin(theta<sub>4</sub>).sin(theta<sub>5</sub>) | -sin(theta<sub>4</sub>).sin(thet
 
 Then, the remaining thetas can be calculated as follows:
 
-theta<sub>4</sub> = atan2(<sup>3</sup>R<sub>7<sub>2,0</sub></sub>, -R3_7[0,0])
+theta<sub>4</sub> = atan2(<sup>3</sup>R<sub>7<sub>2,0</sub></sub>, -<sup>3</sup>R<sub>7<sub>0,0</sub></sub>)
 
 theta<sub>5</sub> = atan2(sqrt(<sup>3</sup>R<sub>7<sub>2,0</sub></sub><sup>2</sup> + <sup>3</sup>R<sub>7<sub>0,0</sub></sub><sup>2</sup>), <sup>3</sup>R<sub>7<sub>1,0</sub></sub>)
 
@@ -186,8 +186,7 @@ theta<sub>6</sub> = atan2(<sup>3</sup>R<sub>7<sub>1,1</sub></sub>, <sup>3</sup>R
 
 Here I'll talk about the code, what techniques I used, what worked and why, where the implementation might fail and how I might improve it if I were going to pursue this project further.  
 
+The code just follows the step previously described. I have tested it and succedded more than 10 times consecutively. Something I might improve if I could spend more time on this project is the rotation around joint_4, which happens when theta<sub>4</sub> is close to _pi_. Although the robot arm do not deviate from the trajectory, these rotations make it reach the destination a little bit slower than it should.
 
-And just for fun, another example image:
-![alt text][image3]
-
+In the code, I commented some parts that I use to derive the analytical expressions for the transformations using sympy (I did some of them by hand, but sympy helped me to check that my calculations were correct. For other calculations, I just relied on the sympy results). Also, I commented some portion of the code where I check that the translation obtain when using the calculated angles theta<sub>2</sub> and theta<sub>3</sub> is correct, and that I choose the appropriate angle versions. Removing the commented portions, the code is actually quite small. The main challenge was the design part, i.e., thinking about and verifying the strategy for calculating the thetas, which is explained in the point 3 of the kinematic analysis of this writeup.
 
